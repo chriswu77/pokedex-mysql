@@ -12,6 +12,14 @@ const controllers = {
 
   filterType: (req, res) => {
     dbHelpers.filterType(req, res);
+  },
+
+  updateName: (req, res) => {
+    dbHelpers.updateName(req, res);
+  },
+
+  delete: (req, res) => {
+    dbHelpers.delete(req, res);
   }
 
 };

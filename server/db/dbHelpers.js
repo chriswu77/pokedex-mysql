@@ -50,6 +50,35 @@ const dbHelpers = {
     .catch((err) => {
       res.status(404).send(err);
     });
+  },
+
+  updateName: (req, res) => {
+    const { id } = req.params;
+    const { newName } = req.body;
+
+    const queryStr = `UPDATE pokemon SET name = "${newName}" WHERE id = ${id}`;
+
+    queryAsync(queryStr)
+      .then((results) => {
+        res.status(200).send(`successfully updated ${newName}`);
+      })
+      .catch((err) => {
+        res.status(404).send(err);
+      });
+  },
+
+  delete: (req, res) => {
+    const { id } = req.params;
+
+    const queryStr = `DELETE FROM pokemon WHERE id=${id}`;
+
+    queryAsync(queryStr)
+      .then((results) => {
+        res.status(200).send('successfully deleted pokemon');
+      })
+      .catch((err) => {
+        res.status(404).send(err);
+      });
   }
 
 };

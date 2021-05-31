@@ -54,13 +54,45 @@ export default class App extends React.Component {
     });
   }
 
+  updateName = (id, newName) => {
+    axios.put(`/pokemons/${id}`, { newName })
+    .then((res) => {
+      const copy = [...this.state.pokemons];
+      const index = copy.findIndex((pokemon) => pokemon.id === id);
+      copy[index]['name'] = newName;
+
+      this.setState({
+        pokemons: copy
+      }, () => console.log(this.state.pokemons));
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+  delete = (id) => {
+    axios.delete(`/pokemons/${id}`)
+    .then((res) => {
+      const copy = [...this.state.pokemons];
+      const index = copy.findIndex((pokemon) => pokemon.id === id);
+      copy.splice(index, 1);
+
+      this.setState({
+        pokemons: copy
+      }, () => this.getTypes());
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
   render() {
     return (
       <div>
         <h1>Fullstack Pokedex!</h1>
         <button onClick={this.getAll}>Show All</button>
         <Dropdown types={this.state.types} filterType={this.filterType} />
-        <PokemonList pokemons={this.state.pokemons} />
+        <PokemonList pokemons={this.state.pokemons} updateName={this.updateName} delete={this.delete} />
       </div>
     );
   }

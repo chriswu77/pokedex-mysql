@@ -6,7 +6,7 @@ const PokemonList = (props) => {
   return (
     <div>
       {
-        props.pokemons.map((pokemon) => <Pokemon pokemon={pokemon} key={pokemon.id} />)
+        props.pokemons.map((pokemon) => <Pokemon pokemon={pokemon} key={pokemon.id} updateName={props.updateName} delete={props.delete} />)
       }
     </div>
   );
